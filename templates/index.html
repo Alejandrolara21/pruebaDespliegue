@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Document</title>
+</head>
+<body>
+    <form id="myForm">
+        <!-- Campo Profundidad -->
+        <label for="depth">Profundidad:</label>
+        <input type="number" id="depth" name="depth" required>
+        <br>
+    
+        <!-- Opción de Tiempo -->
+        <label for="optionTime">Opción de Tiempo:</label>
+        <select id="optionTime" name="optionTime" required onchange="handleOptionChange()">
+            <option value="0"></option>
+            <option value="1">Años</option>
+            <option value="2">Temporadas</option>
+            <option value="3">Meses (Regresion Lineal)</option>
+            <option value="4">Meses (Red Neuronal)</option>
+        </select>
+        <br>
+
+        <!-- Campo Año y Temporada -->
+        <div id="yearField">
+            <label for="year">Año:</label>
+            <input type="text" id="year" name="year" required>
+            <br>
+        </div>
+
+        <div id="seasonField">
+            <label for="season">Temporada:</label>
+            <select id="season" name="season" required>
+                <option value="1">Primavera</option>
+                <option value="2">Verano</option>
+                <option value="3">Otoño</option>
+                <option value="4">Invierno</option>
+            </select>
+            <br>
+        </div>
+
+        <div id="monthField">
+            <label for="month">Meses:</label>
+            <select id="month" name="month" required>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+            <br>
+        </div>
+    
+        <!-- Campo Significancia (Impacto) -->
+        <label for="significance">Significancia (Impacto):</label>
+        <input type="number" id="significance" name="significance" required>
+        <br>
+    
+        <!-- Campo Lugar -->
+        <label for="state_id">Lugar:</label>
+        <select id="state_id" name="state_id" required>
+            {% for estado in list_countries %}
+                <option value="{{ estado['state_id'] }}">{{ estado['state'] }}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+    
+        <!-- Botón de Enviar -->
+        <input type="submit" value="Enviar">
+    </form>
+    <div>
+        <div id="mapid" style="height: 400px;"></div>
+        <p id="showInfoModel"></p>
+    </div>
+
+</body>
+</html>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
